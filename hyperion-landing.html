@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hyperion Platform — Appollon Cryptex</title>
+<meta name="description" content="Portail d'accès à la plateforme Hyperion — Nox, Pythie, Talos. Cyberdéfense souveraine par Appollon Cryptex.">
+<link rel="canonical" href="https://hyperion.appollon-inc.com">
+<meta property="og:title" content="Hyperion Platform — Appollon Cryptex">
+<meta property="og:url" content="https://hyperion.appollon-inc.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:  #0D1B2A;
+  --navy2: #152236;
+  --navy3: #1E3250;
+  --gold:  #C9A84C;
+  --gold2: #E8C97A;
+  --white: #EEF2F7;
+  --muted: #6B80A0;
+  --dim:   #3D4F6B;
+  --border: rgba(201,168,76,0.14);
+  --r: 14px;
+}
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  display: flex; flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ── BACKGROUND ── */
+.bg-layer {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -10%, rgba(201,168,76,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 35% at 5% 90%,  rgba(91,163,208,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 25% 25% at 95% 50%, rgba(110,231,183,0.04) 0%, transparent 60%);
+}
+.grid-layer {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 10%, transparent 90%);
+}
+
+/* ── NAV ── */
+nav {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.4rem 3rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(13,27,42,0.7);
+  backdrop-filter: blur(16px);
+}
+.logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+.logo-hex {
+  width: 34px; height: 34px;
+  background: var(--gold);
+  clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 12px; color: var(--navy);
+}
+.logo-text {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+  color: var(--white); letter-spacing: .04em;
+}
+.logo-text span { color: var(--gold); }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.nav-badge {
+  font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--border); border-radius: 20px;
+  padding: 4px 14px;
+}
+.nav-lang { display: flex; gap: 4px; }
+.nav-lang button {
+  background: none; border: 1px solid transparent; color: var(--muted);
+  font-size: .78rem; padding: 4px 11px; border-radius: 16px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; transition: all .18s;
+}
+.nav-lang button.active {
+  background: var(--gold); color: var(--navy);
+  border-color: var(--gold); font-weight: 500;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative; z-index: 1;
+  text-align: center; padding: 5rem 2rem 3rem;
+}
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(201,168,76,0.07); border: 1px solid var(--border);
+  border-radius: 20px; padding: 5px 16px; margin-bottom: 1.8rem;
+  font-size: .75rem; letter-spacing: .09em; text-transform: uppercase; color: var(--gold);
+}
+.hero-pill::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold); animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+.hero h1 {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.05;
+  margin-bottom: .8rem; letter-spacing: -.02em;
+}
+.hero h1 em { color: var(--gold); font-style: normal; }
+.hero p {
+  color: var(--muted); font-size: 1rem; max-width: 540px;
+  margin: 0 auto 0; line-height: 1.7;
+}
+
+/* ── CARDS GRID ── */
+.cards-wrap {
+  position: relative; z-index: 1;
+  padding: 2.5rem 2rem 5rem;
+  max-width: 1100px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1.25rem;
+}
+
+/* ── PRODUCT CARD ── */
+.card {
+  background: var(--navy2);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--r);
+  display: flex; flex-direction: column;
+  overflow: hidden; position: relative;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.35); }
+.card-top-bar {
+  height: 3px;
+  background: var(--c, var(--gold));
+}
+.card-inner { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; }
+
+/* badge */
+.card-badge {
+  width: 46px; height: 46px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem;
+  background: rgba(255,255,255,0.04); margin-bottom: 1.2rem;
+  border: 1px solid rgba(255,255,255,0.07);
+  color: var(--c, var(--gold));
+}
+.card-name {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 1.35rem; margin-bottom: .22rem;
+}
+.card-role {
+  font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--c, var(--gold)); margin-bottom: 1rem;
+}
+.card-desc {
+  color: var(--muted); font-size: .88rem; line-height: 1.65;
+  flex: 1; margin-bottom: 1.4rem;
+}
+.card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 1.4rem; }
+.ctag {
+  font-size: .68rem; padding: 3px 9px; border-radius: 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: var(--muted);
+}
+.ctag.accent {
+  background: rgba(255,255,255,0.04);
+  border-color: var(--c, var(--gold));
+  color: var(--c, var(--gold));
+}
+
+/* ── CTA BUTTON ── */
+.card-cta {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 16px; border-radius: 9px; text-decoration: none;
+  font-size: .88rem; font-weight: 500; font-family: 'DM Sans', sans-serif;
+  border: none; cursor: pointer; transition: all .2s;
+  background: var(--c, var(--gold));
+  color: var(--navy);
+}
+.card-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.card-cta-arrow { font-size: 1rem; }
+
+/* ── AGENT NOTICE (Talos) ── */
+.agent-notice {
+  background: rgba(255,255,255,0.03);
+  border: 1px dashed rgba(255,255,255,0.12);
+  border-radius: 9px; padding: 12px 16px;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.agent-notice-icon {
+  font-size: 1rem; margin-top: 1px; flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 7px;
+  background: rgba(201,168,76,.1); display: flex;
+  align-items: center; justify-content: center; color: var(--gold);
+}
+.agent-notice-text { font-size: .82rem; color: var(--muted); line-height: 1.55; }
+.agent-notice-text strong { color: var(--white); font-weight: 500; display: block; margin-bottom: 2px; }
+.agent-doc-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 8px; font-size: .78rem; color: var(--gold);
+  text-decoration: none; border: 1px solid var(--border);
+  background: rgba(201,168,76,0.06); border-radius: 6px;
+  padding: 5px 12px; transition: all .2s;
+}
+.agent-doc-link:hover { background: rgba(201,168,76,0.14); }
+
+/* ── COMING SOON CARD ── */
+.card-soon .card-cta {
+  background: rgba(167,139,250,0.1);
+  border: 1px solid rgba(167,139,250,0.25);
+  color: #A78BFA; cursor: default;
+}
+.card-soon .card-cta:hover { transform: none; filter: none; }
+.soon-badge {
+  display: inline-block; font-size: .65rem; letter-spacing: .06em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 20px;
+  background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.3);
+  color: #A78BFA; margin-bottom: .8rem;
+}
+
+/* ── STATUS BAR ── */
+.status-bar {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 2rem 3rem;
+  display: flex; gap: 1rem; flex-wrap: wrap;
+}
+.status-item {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--navy2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 16px; font-size: .8rem; color: var(--muted);
+}
+.status-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.dot-green { background: #4ADE80; box-shadow: 0 0 6px rgba(74,222,128,.5); animation: pulse-dot 2s infinite; }
+.dot-gold  { background: var(--gold); box-shadow: 0 0 6px rgba(201,168,76,.4); }
+.dot-purple{ background: #A78BFA; opacity: .5; }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1; margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: .78rem; color: var(--muted);
+  flex-wrap: wrap; gap: 1rem;
+}
+footer a { color: var(--gold); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ── DEMO SECTION ── */
+.demo-wrap {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+.demo-header {
+  display: flex; align-items: flex-start; gap: 1rem;
+  background: rgba(201,168,76,0.05);
+  border: 1px solid var(--border);
+  border-radius: var(--r); padding: 1.4rem 1.6rem;
+  margin-bottom: 1.25rem;
+}
+.demo-icon { font-size: 1.4rem; flex-shrink:0; margin-top:2px; }
+.demo-title {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 1.1rem; margin-bottom: .25rem;
+}
+.demo-sub { font-size: .83rem; color: var(--muted); line-height: 1.55; }
+.demo-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.25rem; margin-bottom: 1rem;
+}
+.demo-card {
+  background: var(--navy2);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: var(--r); overflow: hidden;
+  border-top: 2px solid var(--dc, var(--gold));
+}
+.demo-card-header {
+  display: flex; align-items: center; gap: .9rem;
+  padding: 1.1rem 1.4rem .8rem; border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.demo-product-badge {
+  width: 36px; height: 36px; border-radius: 9px; flex-shrink:0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: .95rem;
+}
+.demo-product-name {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+}
+.demo-product-url { font-size: .72rem; color: var(--muted); margin-top: 1px; }
+.demo-env-badge {
+  margin-left: auto; font-size: .68rem; letter-spacing: .07em;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 20px;
+  background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.25); color: #4ADE80;
+}
+.demo-fields { padding: 1.1rem 1.4rem; display: flex; flex-direction: column; gap: .7rem; }
+.demo-field {
+  display: flex; align-items: center; gap: .7rem;
+  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+  border-radius: 8px; padding: 9px 12px;
+}
+.demo-label {
+  font-size: .72rem; color: var(--muted); min-width: 80px; flex-shrink:0;
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.demo-value {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: .83rem; color: var(--white); flex: 1;
+  word-break: break-all;
+}
+.copy-btn {
+  background: none; border: 1px solid rgba(255,255,255,.1);
+  color: var(--muted); border-radius: 5px; cursor: pointer;
+  font-size: .85rem; width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .18s; flex-shrink:0;
+}
+.copy-btn:hover { border-color: var(--gold); color: var(--gold); }
+.copy-btn.copied { border-color: #4ADE80; color: #4ADE80; }
+.demo-cta {
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 1.4rem 1.2rem;
+  padding: 11px; border-radius: 8px;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+  color: var(--dc, var(--gold)); text-decoration: none;
+  font-size: .87rem; font-weight: 500; transition: all .2s;
+}
+.demo-cta:hover {
+  background: rgba(255,255,255,.08);
+  border-color: var(--dc, var(--gold));
+}
+.demo-notice {
+  font-size: .8rem; color: var(--muted);
+  background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.06);
+  border-radius: 9px; padding: 11px 16px; line-height: 1.6;
+}
+@media (max-width: 680px) {
+  .demo-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  .cards-wrap { grid-template-columns: 1fr; }
+  nav { padding: 1rem 1.5rem; }
+  .nav-badge { display: none; }
+  footer { flex-direction: column; align-items: flex-start; padding: 1.5rem; }
+  .status-bar { padding: 0 1.5rem 2rem; }
+}
+@media (min-width: 861px) and (max-width: 1060px) {
+  .cards-wrap { grid-template-columns: 1fr 1fr; }
+}
+/* Lang */
+body.fr .en { display: none; }
+body.en .fr { display: none; }
+</style>
+</head>
+<body class="fr">
+
+<div class="bg-layer"></div>
+<div class="grid-layer"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">
+    <div class="logo-hex">H</div>
+    <span class="logo-text"><em>HYPERION</em> · Appollon Cryptex</span>
+  </a>
+  <div class="nav-right">
+    <span class="nav-badge fr">Plateforme R&D · Algérie</span>
+    <span class="nav-badge en">R&D Platform · Algeria</span>
+    <div class="nav-lang">
+      <button class="active" onclick="setLang('fr')">FR</button>
+      <button onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-pill fr">Portail d'accès · Hyperion Platform</div>
+  <div class="hero-pill en">Access portal · Hyperion Platform</div>
+  <h1 class="fr">Bienvenue sur<br><em>Hyperion</em></h1>
+  <h1 class="en">Welcome to<br><em>Hyperion</em></h1>
+  <p class="fr">Sélectionnez un produit pour y accéder. La plateforme regroupe l'ensemble des solutions de cyberdéfense souveraine développées par Appollon Cryptex.</p>
+  <p class="en">Select a product to access it. The platform brings together all sovereign cyber-defense solutions developed by Appollon Cryptex.</p>
+</div>
+
+<!-- STATUS -->
+<div class="status-bar">
+  <div class="status-item">
+    <span class="status-dot dot-green"></span>
+    <span class="fr">NOX — En ligne</span>
+    <span class="en">NOX — Online</span>
+  </div>
+  <div class="status-item">
+    <span class="status-dot dot-green"></span>
+    <span class="fr">PYTHIE — En ligne</span>
+    <span class="en">PYTHIE — Online</span>
+  </div>
+  <div class="status-item">
+    <span class="status-dot dot-gold"></span>
+    <span class="fr">TALOS — Agent déployé</span>
+    <span class="en">TALOS — Agent deployed</span>
+  </div>
+  <div class="status-item">
+    <span class="status-dot dot-purple"></span>
+    <span class="fr">MOBILE — Roadmap 2027</span>
+    <span class="en">MOBILE — Roadmap 2027</span>
+  </div>
+</div>
+
+<!-- CARDS -->
+<div class="cards-wrap">
+
+  <!-- NOX -->
+  <div class="card" style="--c: #5BA3D0; border-color: rgba(91,163,208,0.18);">
+    <div class="card-top-bar"></div>
+    <div class="card-inner">
+      <div class="card-badge">N</div>
+      <div class="card-name">NOX</div>
+      <div class="card-role fr">SIEM / XDR Souverain</div>
+      <div class="card-role en">Sovereign SIEM / XDR</div>
+      <p class="card-desc fr">
+        Plateforme centrale de détection et réponse. Visualisez les alertes en temps réel, gérez vos agents, consultez les incidents et orchestrez la réponse — depuis une interface unifiée.
+      </p>
+      <p class="card-desc en">
+        Central detection and response platform. View real-time alerts, manage agents, review incidents and orchestrate response — from a single unified interface.
+      </p>
+      <div class="card-tags">
+        <span class="ctag accent">Dashboard temps réel</span>
+        <span class="ctag">Alertes & Incidents</span>
+        <span class="ctag">Gestion des agents</span>
+        <span class="ctag accent">Production</span>
+      </div>
+      <a class="card-cta" href="https://nox.appollon-inc.com" target="_blank" rel="noopener">
+        <span class="fr">Accéder à NOX →</span>
+        <span class="en">Access NOX →</span>
+        <span class="card-cta-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- PYTHIE -->
+  <div class="card" style="--c: #6EE7B7; border-color: rgba(110,231,183,0.18);">
+    <div class="card-top-bar"></div>
+    <div class="card-inner">
+      <div class="card-badge">P</div>
+      <div class="card-name">PYTHIE</div>
+      <div class="card-role fr">Attack Grammar Engine · IA</div>
+      <div class="card-role en">Attack Grammar Engine · AI</div>
+      <p class="card-desc fr">
+        Moteur de raisonnement sur la grammaire des attaques. Analysez des séquences TTP MITRE, obtenez la prédiction de la prochaine technique, identifiez les groupes APT et explorez le Grammar Explorer.
+      </p>
+      <p class="card-desc en">
+        Attack sequence reasoning engine. Analyze MITRE TTP sequences, get next-technique predictions, identify APT groups, and explore the Grammar Explorer interface.
+      </p>
+      <div class="card-tags">
+        <span class="ctag accent">Grammar Explorer</span>
+        <span class="ctag">109K séquences TTP</span>
+        <span class="ctag">158 acteurs APT</span>
+        <span class="ctag accent">Beta v1.0</span>
+      </div>
+      <a class="card-cta" href="https://pythie.appollon-inc.com" target="_blank" rel="noopener">
+        <span class="fr">Accéder à PYTHIE →</span>
+        <span class="en">Access PYTHIE →</span>
+        <span class="card-cta-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- TALOS -->
+  <div class="card" style="--c: #C9A84C; border-color: rgba(201,168,76,0.18);">
+    <div class="card-top-bar"></div>
+    <div class="card-inner">
+      <div class="card-badge">T</div>
+      <div class="card-name">TALOS</div>
+      <div class="card-role fr">Bouclier actif — Ring 0</div>
+      <div class="card-role en">Active Shield — Ring 0</div>
+      <p class="card-desc fr">
+        Agent de détection et réponse déployé directement au niveau du noyau système (Ring 0) via eBPF. Bloque les menaces avant exécution, propage les IOC en temps réel entre agents.
+      </p>
+      <p class="card-desc en">
+        Detection and response agent deployed at kernel level (Ring 0) via eBPF. Blocks threats before execution, propagates IOCs in real time between agents.
+      </p>
+      <div class="card-tags">
+        <span class="ctag accent">Linux eBPF</span>
+        <span class="ctag accent">Windows ETW</span>
+        <span class="ctag">Swarm P2P</span>
+        <span class="ctag">v0.7.0</span>
+      </div>
+
+      <!-- Agent notice -->
+      <div class="agent-notice">
+        <div class="agent-notice-icon">⚙</div>
+        <div class="agent-notice-text">
+          <strong class="fr">Aucune interface web — Talos est un agent système</strong>
+          <strong class="en">No web interface — Talos is a system agent</strong>
+          <span class="fr">Talos se déploie via une ligne de commande sur chaque machine à protéger. Il s'enrôle auprès de NOX et opère de façon autonome, sans interface graphique.</span>
+          <span class="en">Talos is deployed via command line on each protected machine. It enrolls with NOX and operates autonomously, with no graphical interface.</span>
+          <br>
+          <a class="agent-doc-link" href="https://github.com/AppolonInc/Talos" target="_blank" rel="noopener">
+            <span>📄</span>
+            <span class="fr">Documentation d'installation →</span>
+            <span class="en">Installation documentation →</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE -->
+  <div class="card card-soon" style="--c: #A78BFA; border-color: rgba(167,139,250,0.12); grid-column: 1 / -1;">
+    <div class="card-top-bar" style="background: rgba(167,139,250,0.3);"></div>
+    <div class="card-inner" style="flex-direction: row; align-items: center; gap: 2rem; flex-wrap: wrap;">
+      <div style="display:flex;align-items:center;gap:1rem;flex-shrink:0;">
+        <div class="card-badge" style="margin:0;">M</div>
+        <div>
+          <div class="card-name">HYPERION Mobile</div>
+          <div class="card-role">Extension Mobile · iOS & Android</div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:220px;">
+        <div class="soon-badge fr">Roadmap 2027</div>
+        <div class="soon-badge en">Roadmap 2027</div>
+        <p class="card-desc fr" style="margin:0;">Protection des appareils mobiles intégrée nativement à la plateforme Hyperion. Détection des menaces réseau, analyse comportementale et remontée des alertes vers NOX en temps réel.</p>
+        <p class="card-desc en" style="margin:0;">Mobile device protection natively integrated into the Hyperion platform. Network threat detection, behavioral analysis, and real-time alert forwarding to NOX.</p>
+      </div>
+      <div class="card-cta" style="min-width:160px;justify-content:center;flex-shrink:0;">
+        <span class="fr">En développement</span>
+        <span class="en">In development</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /cards-wrap -->
+
+<!-- DEMO SECTION -->
+<div class="demo-wrap">
+  <div class="demo-header">
+    <div class="demo-icon">🔐</div>
+    <div>
+      <div class="demo-title fr">Accès démonstration</div>
+      <div class="demo-title en">Demo access</div>
+      <div class="demo-sub fr">Environnement isolé — données synthétiques uniquement. Aucune donnée client réelle n'est accessible.</div>
+      <div class="demo-sub en">Isolated environment — synthetic data only. No real client data is accessible.</div>
+    </div>
+  </div>
+
+  <div class="demo-grid">
+
+    <!-- NOX DEMO -->
+    <div class="demo-card" style="--dc: #5BA3D0;">
+      <div class="demo-card-header">
+        <span class="demo-product-badge" style="background:rgba(91,163,208,.12);color:#5BA3D0;">N</span>
+        <div>
+          <div class="demo-product-name">NOX</div>
+          <div class="demo-product-url">nox.appollon-inc.com</div>
+        </div>
+        <div class="demo-env-badge fr">Démo</div>
+        <div class="demo-env-badge en">Demo</div>
+      </div>
+      <div class="demo-fields">
+        <div class="demo-field">
+          <span class="demo-label fr">Identifiant</span>
+          <span class="demo-label en">Username</span>
+          <span class="demo-value" id="nox-user">demo_analyst</span>
+          <button class="copy-btn" onclick="copy('nox-user', this)" title="Copier">⧉</button>
+        </div>
+        <div class="demo-field">
+          <span class="demo-label fr">Mot de passe</span>
+          <span class="demo-label en">Password</span>
+          <span class="demo-value" id="nox-pass">Demo@NOX2026!</span>
+          <button class="copy-btn" onclick="copy('nox-pass', this)" title="Copier">⧉</button>
+        </div>
+      </div>
+      <a class="demo-cta" href="https://nox.appollon-inc.com" target="_blank" rel="noopener">
+        <span class="fr">Ouvrir NOX démo ↗</span>
+        <span class="en">Open NOX demo ↗</span>
+      </a>
+    </div>
+
+    <!-- PYTHIE DEMO -->
+    <div class="demo-card" style="--dc: #6EE7B7;">
+      <div class="demo-card-header">
+        <span class="demo-product-badge" style="background:rgba(110,231,183,.12);color:#6EE7B7;">P</span>
+        <div>
+          <div class="demo-product-name">PYTHIE</div>
+          <div class="demo-product-url">pythie.appollon-inc.com</div>
+        </div>
+        <div class="demo-env-badge fr">Démo</div>
+        <div class="demo-env-badge en">Demo</div>
+      </div>
+      <div class="demo-fields">
+        <div class="demo-field">
+          <span class="demo-label fr">Identifiant</span>
+          <span class="demo-label en">Username</span>
+          <span class="demo-value" id="pythie-user">demo</span>
+          <button class="copy-btn" onclick="copy('pythie-user', this)" title="Copier">⧉</button>
+        </div>
+        <div class="demo-field">
+          <span class="demo-label fr">Mot de passe</span>
+          <span class="demo-label en">Password</span>
+          <span class="demo-value" id="pythie-pass">demo</span>
+          <button class="copy-btn" onclick="copy('pythie-pass', this)" title="Copier">⧉</button>
+        </div>
+      </div>
+      <a class="demo-cta" href="https://pythie.appollon-inc.com" target="_blank" rel="noopener">
+        <span class="fr">Ouvrir PYTHIE démo ↗</span>
+        <span class="en">Open PYTHIE demo ↗</span>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="demo-notice fr">
+    ⚠️ Ces identifiants donnent accès à un environnement de démonstration avec des données entièrement synthétiques. Aucune modification n'est persistée. L'accès est en lecture seule.
+  </div>
+  <div class="demo-notice en">
+    ⚠️ These credentials give access to a demo environment with entirely synthetic data. No changes are persisted. Access is read-only.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <strong style="color:var(--white);font-family:'Syne',sans-serif;">HYPERION</strong>
+    &nbsp;·&nbsp;
+    <span class="fr">Développé par Appollon Cryptex · Algérie · 2026</span>
+    <span class="en">Developed by Appollon Cryptex · Algeria · 2026</span>
+  </div>
+  <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+    <a href="https://www.appollon-inc.com" target="_blank">appollon-inc.com</a>
+    <a href="https://github.com/AppolonInc" target="_blank">GitHub</a>
+    <a href="mailto:contact@appollon-inc.com">contact@appollon-inc.com</a>
+  </div>
+</footer>
+
+<script>
+function copy(id, btn) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent = '✓';
+    btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent='⧉'; btn.classList.remove('copied'); }, 1800);
+  });
+}
+function setLang(l) {
+  document.body.className = l;
+  document.querySelectorAll('.nav-lang button').forEach((b,i)=>{
+    b.classList.toggle('active',(i===0&&l==='fr')||(i===1&&l==='en'));
+  });
+}
+// Staggered card entrance
+const cards = document.querySelectorAll('.card');
+cards.forEach((c,i)=>{
+  c.style.opacity='0';
+  c.style.transform='translateY(18px)';
+  c.style.transition=`opacity .55s ease ${i*.1}s, transform .55s ease ${i*.1}s, border-color .25s, box-shadow .25s`;
+});
+requestAnimationFrame(()=>{
+  setTimeout(()=>{
+    cards.forEach(c=>{
+      c.style.opacity='1';
+      c.style.transform='translateY(0)';
+    });
+  }, 100);
+});
+</script>
+</body>
+</html>
